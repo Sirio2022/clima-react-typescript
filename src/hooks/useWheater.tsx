@@ -22,7 +22,7 @@ export function useWheater() {
   } = useForm<SearchType>();
 
   const weatherSearch = async (data: SearchType) => {
-    const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${
       data.city
     },${data.country}&appid=${import.meta.env.VITE_GEOWEATHER_API_KEY}`;
 
@@ -41,7 +41,7 @@ export function useWheater() {
       const lat = data[0].lat;
       const lon = data[0].lon;
 
-      const weatherUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
         import.meta.env.VITE_GEOWEATHER_API_KEY
       }`;
       const { data: weatherData } = await axios.get(weatherUrl);
