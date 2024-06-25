@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <h1 className={styles.title}>Cunsulta el clima de tu ciudad</h1>
+      <h1 className={styles.title}>Consulta el clima de tu ciudad</h1>
 
       <main className={styles.container}>
         <Form />
