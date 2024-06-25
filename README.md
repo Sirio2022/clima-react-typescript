@@ -18,6 +18,9 @@ App para consultar una API del clima.
 - Styled Components
 - Vite
 
+  ![Captura de pantalla 2024-06-25 163134](https://github.com/Sirio2022/clima-react-typescript/assets/105917953/7fa75d4d-4b0d-445a-b2c0-6276cbfa9186)
+
+
 ## Contacto
 
 Juan Manuel Alvarez - www.linkedin.com/in/juanmanuelalvarezb
