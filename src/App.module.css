@@ -1,0 +1,32 @@
+.title {
+    text-align: center;
+    font-size: 3rem;
+    margin-top: 5rem;
+    text-transform: uppercase;
+}
+
+.container {
+    width: 95%;
+    max-width: 100rem;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        column-gap: 2rem;
+        margin-top: 5rem;
+    }
+
+}
+
+.error {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
