@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { SearchType } from '../types';
-import axios from 'axios';
 import { object, string, number, parse } from 'valibot';
 import { useWeatherStore } from '../store';
 import { useMemo } from 'react';
+import { fetchWeather } from '../services/geoWeather';
+import { searchWeather } from '../services/weather';
 
 export function useWheater() {
   const setWeather = useWeatherStore((state) => state.setWeather);
@@ -22,29 +23,22 @@ export function useWheater() {
   } = useForm<SearchType>();
 
   const weatherSearch = async (data: SearchType) => {
-    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${
-      data.city
-    },${data.country}&appid=${import.meta.env.VITE_GEOWEATHER_API_KEY}`;
+    const geoResponse = await fetchWeather(data);
 
     resetState();
     setLoading(true);
 
     try {
-      const { data } = await axios.get(geoUrl);
-
-      if (data.length === 0) {
+      if (geoResponse.length === 0) {
         setNotFound(true);
       } else {
         setNotFound(false);
       }
 
-      const lat = data[0].lat;
-      const lon = data[0].lon;
+      const lat = geoResponse[0].lat;
+      const lon = geoResponse[0].lon;
 
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
-        import.meta.env.VITE_GEOWEATHER_API_KEY
-      }`;
-      const { data: weatherData } = await axios.get(weatherUrl);
+      const searchWeatherResult = await searchWeather({ lat, lon });
 
       const WeatherSchema = object({
         name: string(),
@@ -55,7 +49,7 @@ export function useWheater() {
         }),
       });
 
-      const result = parse(WeatherSchema, weatherData);
+      const result = parse(WeatherSchema, searchWeatherResult);
       setWeather(result);
     } catch (error) {
       console.error(error);
